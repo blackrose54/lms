@@ -5,26 +5,24 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import { PasswordReset, passwordReset } from "@/lib/userSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { register } from "module";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import React, { FC, ReactElement, useState } from "react";
-import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { FC, ReactElement } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-interface pageProps {}
 
-const Page: FC<pageProps> = ({}): ReactElement => {
+const Page = (): ReactElement => {
+
   const params = useSearchParams();
   const {
     register,

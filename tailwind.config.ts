@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import {withUt} from 'uploadthing/tw'
 
 const config = {
   darkMode: ["class"],
@@ -52,6 +53,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -67,14 +69,20 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "reverse-spin":{
+          from: {
+            transform: 'rotate(360deg)'
+          },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        'reverse-spin': 'reverse-spin 1s linear infinite'
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
 
-export default config
+export default withUt(config)

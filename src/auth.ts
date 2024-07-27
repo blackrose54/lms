@@ -1,16 +1,14 @@
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { userlogin } from "./lib/userSchema";
 import Google from "next-auth/providers/google";
-import bcrypt from "bcryptjs";
 import prisma from "./lib/db";
 import {
-  generateTwoFactorToken,
   getTwoFactorConfirmationByUserID,
-  getTwoFactorTokenByEmail,
+  getTwoFactorTokenByEmail
 } from "./lib/twoFactor";
-import { sendTwoFactorTokenEmail } from "./lib/mail";
+import { userlogin } from "./lib/userSchema";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -97,10 +95,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
     Google,
   ],
-  debug: true,
   session: {
     strategy: "jwt",
   },
+  trustHost:true,
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider !== "credentials") return true;
@@ -126,8 +124,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
+
     async redirect(){
       return '/dashboard';
+    },
+    jwt({user,token}){
+      if(user){
+        token.id = user.id
+      }
+      return token;
+    },
+    session({session,token}){
+      session.user.id = token.id as string
+      return session;
     }
   },
   events: {

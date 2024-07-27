@@ -1,12 +1,7 @@
 "use server";
 
-import { signIn, signOut } from "@/auth";
+import { signIn } from "@/auth";
 import prisma from "@/lib/db";
-import { sendTwoFactorTokenEmail } from "@/lib/mail";
-import {
-  generateTwoFactorToken,
-  getTwoFactorTokenByEmail,
-} from "@/lib/twoFactor";
 import { UserLogin, UserSignUp, userSignUp } from "@/lib/userSchema";
 import { BuiltInProviderType } from "@auth/core/providers";
 import bcrypt from "bcryptjs";

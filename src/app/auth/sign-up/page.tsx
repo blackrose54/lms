@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { oauth, signUp } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,13 +13,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
-import { UserSignUp, userSignUp } from "@/lib/userSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { oauth, signUp } from "@/actions/auth";
-import { useRouter } from "next/navigation";
 import { toast } from "@/components/ui/use-toast";
 import { sendConformationMail } from "@/lib/mail";
+import { UserSignUp, userSignUp } from "@/lib/userSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 
 export default function LoginForm() {
   const {
